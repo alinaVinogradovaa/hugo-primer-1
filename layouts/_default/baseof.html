@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+    {{ partial "css.html" . }}
+  </head>
+  <body>
+    {{ block "main" . }}
+    <div class="d-flex flex-wrap flex-lg-nowrap">
+      <h1>{{ .Site.Title }}</h1>
+    </div>
+    {{ end }}
+  </body>
+</html>

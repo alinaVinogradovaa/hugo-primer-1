@@ -1,0 +1,12 @@
+{{- $targetPath  := "css/style.css" }}
+{{- $sass        := "sass/style.sass" }}
+{{- $nodeModules := (slice "node_modules") }}
+{{- $productionCssOpts := (dict "targetPath" $targetPath "includePaths" $nodeModules "outputStyle" "compressed") }}
+{{- $devCssOpts :=        (dict "targetPath" $targetPath "includePaths" $nodeModules "enableSourceMap" true) }}
+{{- if .Site.IsServer }}
+{{- $css := resources.Get $sass | resources.ExecuteAsTemplate $sass . | toCSS $devCssOpts }}
+<link rel="stylesheet" href="{{ $css.Permalink }}">
+{{- else }}
+{{- $css := resources.Get $sass | resources.ExecuteAsTemplate $sass . | toCSS $productionCssOpts | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.Permalink }}" integrity="{{ $css.Data.Integrity }}">
+{{- end }}

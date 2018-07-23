@@ -1,0 +1,10 @@
+{{- $primerModules   := .Site.Data.primer.modules }}
+{{- $primerUtilities := .Site.Data.primer.utilities }}
+{{- range $primerModules }}
+{{- $importPath := printf "%s/index" . }}
+@import {{ $importPath }}
+{{- end }}
+{{- range $primerUtilities }}
+{{- $importPath := printf "primer-utilities/lib/%s" . }}
+@import {{ $importPath }}
+{{- end }}
